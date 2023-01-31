@@ -30,7 +30,7 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
 	period := q.Get("period")
 	if period == "" || !periods[period] {
 		e := msg{ Status: "error", Desc: "Unsupported period"}
-		r, _ := json.Marshal(e) 
+		r, _ := json.MarshalIndent(e, "", " ") 
 		w.WriteHeader(400)
 		w.Write(r)
 		return
@@ -41,7 +41,7 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
 	loc, error := time.LoadLocation(tz)
 	if error != nil {
 		e := msg{ Status: "error", Desc: "Unsupported timezone"}
-		resp, _ := json.Marshal(e) 
+		resp, _ := json.MarshalIndent(e, "", " ") 
 		w.WriteHeader(400)
 		w.Write(resp)
 		return
@@ -81,7 +81,7 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Write response
-	resp, _ := json.Marshal(response) 
+	resp, _ := json.MarshalIndent(response, "", " ") 
 	w.Write(resp)
         
 }
